@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raditya Ar Rahman | Professional Waiter</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins & Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --bg-dark: #121212;
+            --bg-card: #1E1E1E;
+            --primary: #C08552; /* Golden Coffee Roast */
+            --primary-hover: #A06C3F;
+            --text-main: #F5F5F5;
+            --text-muted: #B0B0B0;
+            --glass: rgba(30, 30, 30, 0.7);
+            --border-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        
+        /* Utilitas Padding Mobile vs Desktop */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .section-padding {
+            padding: 80px 0; /* Default Desktop */
+        }
+
+        .text-center { text-align: center; }
+        .text-primary { color: var(--primary); }
+
+        /* --- BUTTONS --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(192, 133, 82, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* --- HEADER & NAV (RESPONSIVE) --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        /* Hamburger Menu (Hanya muncul di Mobile) */
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(18,18,18,1)), 
+            url('hero-sec.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center; /* Center text on mobile */
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-subtitle {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem); /* Ukuran font responsif otomatis */
+            margin-bottom: 20px;
+        }
+
+        .hero-desc {
+            color: var(--text-muted);
+            font-size: clamp(1rem, 2vw, 1.1rem); /* Responsif */
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* --- ABOUT SECTION --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img-wrapper {
+            position: relative;
+        }
+
+        .about-img-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--primary);
+            border-radius: var(--border-radius);
+            z-index: 1;
+        }
+
+        .about-img {
+            border-radius: var(--border-radius);
+            position: relative;
+            z-index: 2;
+            filter: grayscale(20%);
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .about-img:hover {
+            filter: grayscale(0%);
+        }
+
+        .section-heading {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .section-heading span { color: var(--primary); }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .stats h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        .stats p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- SKILLS SECTION --- */
+        .services-section {
+            background-color: var(--bg-card);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .skill-card {
+            background: rgba(255,255,255,0.03);
+            padding: 30px 25px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .skill-card:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .skill-icon {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .skill-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .skill-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- TIMELINE (RESPONSIVE FIX) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: rgba(255,255,255,0.1);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; text-align: left; }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            right: -8px;
+            z-index: 10;
+            border: 3px solid var(--bg-dark);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(192, 133, 82, 0.15);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content h4 {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content li {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            list-style: none;
+            padding-left: 15px;
+            position: relative;
+        }
+        .timeline-content li::before {
+            content: '•'; color: var(--primary); position: absolute; left: 0;
+        }
+
+        /* --- CONTACT SECTION --- */
+        .contact-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .contact-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            width: 100%; /* Full width on mobile by default */
+            max-width: 300px; /* Max width constraint */
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .contact-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .contact-icon { font-size: 2.2rem; color: var(--primary); margin-bottom: 15px; }
+        .contact-card h3 { font-family: 'Poppins', sans-serif; font-size: 1.1rem; margin-bottom: 5px; }
+        .contact-card p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 50px;
+        }
+
+        footer p { color: var(--text-muted); font-size: 0.85rem; }
+
+        /* --- MEDIA QUERIES (RESPONSIVE) --- */
+        @media (max-width: 768px) {
+            /* Nav Mobile Styles */
+            .hamburger {
+                display: block; /* Munculkan ikon burger */
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-card);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                gap: 20px;
+                display: none; /* Sembunyikan menu default */
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+
+            .nav-links.active {
+                display: flex; /* Tampilkan jika class active ada */
+                animation: slideDown 0.3s ease;
+            }
+
+            /* About Grid Mobile */
+            .about-grid {
+                grid-template-columns: 1fr; /* Tumpuk gambar dan teks */
+                gap: 30px;
+                text-align: center;
+            }
+
+            .about-img-wrapper {
+                margin: 0 auto;
+                max-width: 400px;
+            }
+            
+            .stats {
+                justify-content: center;
+            }
+
+            /* Timeline Mobile */
+            .timeline::after {
+                left: 20px; /* Geser garis ke kiri */
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px; /* Padding kiri untuk konten */
+                padding-right: 0;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+                text-align: left; /* Rata kiri semua */
+            }
+
+            .timeline-item:nth-child(odd) {
+                left: 0;
+                text-align: left; /* Rata kiri semua */
+            }
+
+            .timeline-dot {
+                left: 11px; /* Posisi titik selaras dengan garis */
+                right: auto;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 11px;
+            }
+
+            /* Section Padding Reduce */
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            .contact-card {
+                width: 100%;
+                max-width: none; /* Full width cards on mobile */
+            }
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">RADITYA<span class="text-primary">.</span></div>
+                
+                <!-- Menu Link Desktop -->
+                <div class="nav-links" id="navLinks">
+                    <a href="#about" onclick="toggleMenu()">About</a>
+                    <a href="#service" onclick="toggleMenu()">Service Philosophy</a>
+                    <a href="#experience" onclick="toggleMenu()">Experience</a>
+                    <a href="#contact" onclick="toggleMenu()" class="text-primary">Contact Me</a>
+                </div>
+
+                <!-- Hamburger Icon Mobile -->
+                <div class="hamburger" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-subtitle">Waiters & Server</span>
+            <h1 class="hero-title">Melayani Dengan <br><span class="text-primary">Hati & Senyuman</span></h1>
+            <p class="hero-desc">
+                Saya Raditya. Individu yang bertanggung jawab, komunikatif, dan siap menciptakan pengalaman coffee shop terbaik untuk setiap pelanggan.
+            </p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn">
+                    Hubungi Saya <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#about" class="btn btn-outline">
+                    Profil Saya
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img-wrapper">
+                    <img src="pp1.jpeg" alt="Raditya Profile" class="about-img">
+                </div>
+                <div>
+                    <h2 class="section-heading">Tentang <span>Saya</span></h2>
+                    <div class="about-text">
+                        <p>
+                            <strong>Lebih dari sekadar mengantarkan kopi.</strong> Saya percaya bahwa pelayanan yang hebat dimulai dari sikap yang ramah dan perhatian terhadap detail.
+                        </p>
+                        <p>
+                            Meskipun memiliki latar belakang di Desain Grafis dan Teknologi (RPL), saya memilih untuk fokus pada industri hospitality karena saya menikmati interaksi dengan orang baru.
+                        </p>
+                    </div>
+                    <div class="stats">
+                        <div>
+                            <h3>SMA</h3>
+                            <p>Pendidikan</p>
+                        </div>
+                        <div>
+                            <h3>Hotel</h3>
+                            <p>Pengalaman</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services / Skills -->
+    <section id="service" class="section-padding services-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading">Filosofi <span>Pelayanan</span></h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Kualitas yang saya bawa ke dalam setiap shift.</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fas fa-comments skill-icon"></i>
+                    <h3>Komunikasi Aktif</h3>
+                    <p>Mendengarkan pesanan pelanggan dengan teliti dan menjelaskan menu dengan jelas serta ramah.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-users skill-icon"></i>
+                    <h3>Kolaborasi Tim</h3>
+                    <p>Bekerja sama dengan barista dan kasir untuk memastikan alur kerja tetap cepat dan harmonis.</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-heart skill-icon"></i>
+                    <h3>Guest Satisfaction</h3>
+                    <p>Prioritas utama adalah kepuasan tamu. Saya siap membantu dengan senyuman yang tulus.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section id="experience" class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading">Perjalanan <span>Karir</span></h2>
+            </div>
+
+            <div class="timeline">
+                <!-- Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Mei 2025 - Nov 2025</span>
+                        <h3>Graphic Design Intern</h3>
+                        <h4>Hotel Holiday Resort Lombok</h4>
+                        <ul>
+                            <li>Berkomunikasi langsung dengan klien hotel.</li>
+                            <li>Berkoordinasi lintas departemen untuk target.</li>
+                            <li>Disiplin dan tepat waktu.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2023 - 2026</span>
+                        <h3>SMK Negeri 2 Mataram</h3>
+                        <h4>Jurusan RPL</h4>
+                        <ul>
+                            <li>Mempelajari logika pemrograman & manajemen.</li>
+                            <li>Mengembangkan kemampuan problem solving.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding services-section">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading">Kontak <span>Saya</span></h2>
+                <p style="color: var(--text-muted); margin-bottom: 40px;">Klik salah satu kartu di bawah untuk menghubungi saya.</p>
+            </div>
+
+            <div class="contact-wrapper">
+                <!-- WA -->
+                <a href="https://wa.me/628998023803" target="_blank" class="contact-card">
+                    <i class="fab fa-whatsapp contact-icon"></i>
+                    <h3>WhatsApp</h3>
+                    <p>+62 89-9802-3803</p>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:arrahmanraditya5@gmail.com" class="contact-card">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <h3>Email</h3>
+                    <p>Kirim Email</p>
+                </a>
+
+                <!-- Instagram (Silakan isi username asli) -->
+                <a href="https://instagram.com/kirinnn_.12" target="_blank" class="contact-card">
+                    <i class="fab fa-instagram contact-icon"></i>
+                    <h3>Instagram</h3>
+                    <p>@kirinnn_.12</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Raditya Ar Rahman. Portfolio untuk Posisi Waiters & Server.</p>
+        </div>
+    </footer>
+
+    <!-- Script Sederhana untuk Menu Mobile -->
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+
+</body>
+</html>
